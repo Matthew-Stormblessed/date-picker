@@ -16,6 +16,7 @@ export default function Home() {
 
   const [datePickerStatus, setDatePickerStatus] = React.useState<DatePickerStatus>(DatePickerStatus.NotSelected);
   const [datePayload, setDatePayload] = React.useState<string | null>(null);
+  const [compliment, setCompliment] = React.useState<string>("");
 
   useEffect(() => {
     if (datePickerStatus === DatePickerStatus.Confirmed && datePayload) {
@@ -31,6 +32,23 @@ export default function Home() {
       });
     }
   }, [datePickerStatus, datePayload]);
+
+  const GenerateCompliment = () => {
+    const complimentList = [
+      "You are so good at REPO!",
+      "You give the best snuggles!",
+      "You are unironically very funny, I laugh so much with you!",
+      "You are insanely attractive!",
+      "You are so good at making me feel better!",
+      "You are so beautiful, I often just stare at you!",
+      "You are so good at puzzles, I am literally jealous sometimes!",
+      "You are so generous, you always do stuff for me without me asking!",
+      "You are so loving, you always make me feel so loved!",
+      "You are so adaptable and thoughtful, I feel so seen with you!",
+    ];
+    const randomIndex = Math.floor(Math.random() * complimentList.length);
+    setCompliment(complimentList[randomIndex]);
+  }
 
   return (
     <div className="relative min-h-screen w-full font-sans overflow-hidden">
@@ -91,17 +109,20 @@ export default function Home() {
           })()}
           {datePickerStatus === DatePickerStatus.Confirmed && (
             <>
-                  {/* Background image */}
-      <div className="absolute inset-0 z-0">
-                      <h1 className="text-3xl font-bold">Yay! I can't wait for our date!</h1>
-        <img
-          src="your-photo.jpg" // Place your image in the public folder and use the filename here
-          alt="Couple background"
-          className=""
-        />
-        {/* Overlay for readability */}
-        
-      </div>
+              {/* Background image */}
+              <div className="absolute inset-0 z-0 gap-4">
+                <h1 className="text-3xl font-bold">Yay! I can't wait for our date!</h1>
+                <img
+                  src="your-photo.jpg" // Place your image in the public folder and use the filename here
+                  alt="Couple background"
+                  className=""
+                />
+                {/* Overlay for readability */}
+
+                <button onClick={GenerateCompliment} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Click here for a compliment!</button>
+                <h1 className="text-3xl font-bold">{compliment}</h1>
+
+              </div>
 
             </>
           )}
